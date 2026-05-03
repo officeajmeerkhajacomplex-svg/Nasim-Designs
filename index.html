@@ -335,11 +335,13 @@
 
         /* UPDATED: Hero Layout Shift Styles */
         .hero-logo-frame {
-            width: 280px; /* Increased size */
-            height: 280px; /* Increased size */
+            width: 280px; 
+            height: 280px; 
             border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.05);
-            padding: 20px;
+            /* UPDATED: Stroke 0% (Removed border) and Positioned between Left/Center */
+            border: none; 
+            margin-left: 10%; 
+            padding: 0; /* Removed padding for edge-to-edge zoom */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -349,8 +351,7 @@
             background: #fafafa;
         }
         .hero-logo-frame:hover {
-            border-color: rgba(0,0,0,0.2);
-            scale: 1.02;
+            scale: 1.05;
             background: #fff;
         }
         .hero-logo-frame img {
@@ -359,12 +360,18 @@
             object-fit: cover;
             border-radius: 50%;
             filter: grayscale(10%);
+            /* UPDATED: Zoomed inside the frame */
+            transform: scale(1.4); 
+            transition: transform 1.2s ease;
+        }
+        .hero-logo-frame:hover img {
+            transform: scale(1.5);
         }
         @media (max-width: 1280px) {
-            .hero-logo-frame { width: 220px; height: 220px; }
+            .hero-logo-frame { width: 220px; height: 220px; margin-left: 5%; }
         }
         @media (max-width: 1024px) {
-            .hero-logo-frame { width: 180px; height: 180px; margin-bottom: 40px; }
+            .hero-logo-frame { width: 180px; height: 180px; margin-left: 0; margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -385,24 +392,29 @@
             <a href="#interior" class="hover:text-zinc-400 transition-colors">Interior</a>
             <a href="#graphic" class="hover:text-zinc-400 transition-colors">Graphics</a>
             <a href="#expertise" class="hover:text-zinc-400 transition-colors">Skills</a>
-            <a href="mailto:contact@studio.com" class="bg-black text-white px-8 py-3 tracking-[0.3em] text-[9px] hover:bg-zinc-800 transition-all shadow-lg">Hire Me</a>
         </div>
 
-        <!-- PRESERVATION: GPay spacing and styling -->
-        <a href="https://pay.google.com/gp/p/..." target="_blank" class="flex items-center space-x-3 text-[10px] uppercase font-bold border-b-2 border-black pb-1 hover:opacity-40 transition-all group shrink-0 ml-10">
-            <i data-lucide="coffee" class="w-4 h-4"></i>
-            <span class="hidden sm:inline">GPay Fund</span>
-            <span class="sm:hidden">Tip</span>
-        </a>
+        <!-- NEW: Action Group (Combined Hire Me and GPay) -->
+        <div class="flex items-center space-x-6">
+            <!-- GPay link styled neatly with Hire Me -->
+            <a href="https://pay.google.com/gp/p/..." target="_blank" class="flex items-center space-x-2 text-[10px] uppercase font-bold border-b border-black/10 pb-1 hover:border-black transition-all group shrink-0">
+                <i data-lucide="coffee" class="w-3.5 h-3.5"></i>
+                <span class="hidden sm:inline tracking-[0.2em]">GPay Fund</span>
+            </a>
+            
+            <a href="mailto:contact@studio.com" class="bg-black text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold hover:bg-zinc-800 transition-all shadow-lg shrink-0">
+                Hire Me
+            </a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero-compressed min-h-[90vh] flex flex-col justify-center px-10 md:px-32 relative bg-white overflow-hidden">
         
         <!-- UPDATED: Hero Layout Shift (Split Flex Container) -->
-        <div class="w-full flex flex-col md:flex-row items-center justify-between gap-20">
+        <div class="w-full flex flex-col md:flex-row items-center justify-between gap-10">
             
-            <!-- Left Side: Large Logo Frame -->
+            <!-- Left Side: Large Logo Frame (Now Positioned between Left and Center) -->
             <div class="hero-logo-frame opacity-0 hero-fade shrink-0">
                 <img src="nasim logo2.jpg" alt="Nasim Logo">
             </div>
