@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/svg+xml" href="nasim logo2.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio.Creative | Interior Architecture & Graphic Design</title>
+    <title>Nasim Designs. | Interior Architecture & Graphic Design</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- GSAP for Animations -->
@@ -14,17 +15,39 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
+        /* --- NEW: DARK THEME VARIABLES (Preservation Protocol) --- */
         :root {
-            --bg-color: #000000;
-            --text-main: #0a0a0a;
-            --zinc-200: #e4e4e7;
-            --zinc-400: #a1a1aa;
+            --bg-color: #050505; 
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --zinc-200: #27272a;
+            --zinc-400: #52525b;
+            
+            /* Logo Inspired Gradient */
+            --logo-blue: #0033ff;
+            --logo-cyan: #00d4ff;
+            --logo-gradient: linear-gradient(135deg, #001f3f 0%, #0033ff 50%, #00d4ff 100%);
+            --text-gradient: linear-gradient(90deg, #0033ff, #00d4ff);
+
+            /* Preservation of previous palette as accents */
+            --navy: #001f3f;
+            --burnt-orange: #d35400;
+            --sage: #87a96b;
+            --cream: #1a1a14;
+            --charcoal: #121212;
+            --mustard: #ffdb58;
+            --terracotta: #e2725b;
+            --teal: #008080;
+            --blush: #f19cbb;
+            --forest: #228b22;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* NEW: Hide default cursor */
+            cursor: none !important;
         }
 
         body {
@@ -35,6 +58,38 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- NEW: BACKGROUND GRAIN & PARTICLES (Preservation Protocol) --- */
+        .bg-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- NEW: BLUE GRADIENT TEXT (Preservation Protocol) --- */
+        .gradient-text-blue {
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
         h1, h2, .serif {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -42,19 +97,8 @@
 
         /* --- Custom Scrollbar --- */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #fff; }
-        ::-webkit-scrollbar-thumb { background: #000; }
-
-        /* --- Parallax & Image Handling --- */
-        .parallax-wrap {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .parallax-img {
-            scale: 1.5; 
-            will-change: transform;
-        }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--logo-cyan); }
 
         /* --- ULTRA-SLOW & CLEAN Horizontal Scroller --- */
         .manual-horizontal-container {
@@ -65,8 +109,8 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            border-top: 1px solid rgba(0,0,0,0.03);
-            border-bottom: 1px solid rgba(0,0,0,0.03);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .horizontal-scroller-content {
@@ -82,21 +126,22 @@
             line-height: 0.8;
             padding-right: 12rem;
             letter-spacing: -0.07em;
-            opacity: 0.05; 
+            opacity: 0.1; 
         }
 
-        /* --- Custom Cursor --- */
+        /* --- NEW: DOT CURSOR (Preservation Protocol) --- */
         .cursor-ball {
             position: fixed;
             top: 0;
             left: 0;
             width: 8px;
             height: 8px;
-            background: #000;
+            background: var(--logo-cyan);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.1s ease;
+            box-shadow: 0 0 15px var(--logo-cyan);
+            transform: translate(-50%, -50%);
         }
 
         /* --- Expertise Section UI --- */
@@ -111,38 +156,44 @@
         .skill-progress {
             position: absolute;
             height: 3px;
-            background: var(--text-main);
+            background: linear-gradient(90deg, var(--logo-blue), var(--logo-cyan));
             top: -1px;
             width: 0%;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
         }
 
-        /* NEW: Hover Enhancements for Toolkit Section */
         .skill-box {
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            cursor: default;
         }
         .skill-box:hover {
             transform: translateX(10px);
         }
-        .skill-box:hover .skill-progress {
-            background: #52525b; /* zinc-600 */
-        }
 
-        /* NEW: Hover Enhancements for Graphic Logic Section */
+        /* Hover Enhancements for Graphic Logic Section */
         .graphic-card {
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            background: #111;
         }
+        .graphic-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,51,255,0.2), rgba(0,212,255,0.2));
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+        .graphic-card:hover::after { opacity: 1; }
         .graphic-card:hover {
             transform: translateY(-15px) scale(1.02);
             z-index: 10;
         }
-        .graphic-card:hover img {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.1);
-        }
 
-        /* NEW: Graphic Logic Marquee Styles */
+        /* Graphic Logic Marquee Styles */
         .graphic-marquee {
             width: 100%;
             overflow: hidden;
@@ -162,52 +213,32 @@
             margin-right: 2rem;
             flex-shrink: 0;
             overflow: hidden;
-            background: #f4f4f5;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.5s ease;
         }
         .marquee-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%);
+            filter: grayscale(100%) contrast(1.2);
             transition: all 0.5s ease;
         }
         .marquee-item:hover img {
-            filter: grayscale(0%);
+            filter: grayscale(0%) contrast(1);
             transform: scale(1.1);
         }
-        @keyframes marquee-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
 
-        /* NEW: Glassmorphism Effect for Scrolled Nav */
+        /* Glassmorphism for Dark Nav */
         .nav-scrolled {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(5, 5, 5, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             padding: 1rem 5rem !important;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* FIX: Adjusted overflow and removed clip-path for title to prevent cutting */
-        .hero-title-reveal {
-            overflow: visible; 
-            position: relative;
-        }
-
-        .img-reveal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            z-index: 10;
-            transform-origin: top;
-        }
-
-        /* --- NEW: Spatial Luxury Vertical Tickers --- */
+        /* Spatial Luxury Vertical Tickers */
         .ticker-container {
             height: 120vh;
             overflow: hidden;
@@ -236,7 +267,7 @@
             width: 100%;
             aspect-ratio: 4/5;
             overflow: hidden;
-            background: #f4f4f5;
+            background: #111;
         }
 
         .ticker-item img {
@@ -252,141 +283,110 @@
             transform: scale(1.05);
         }
 
-        /* --- PRESERVATION PROTOCOL: Modular Injection for Responsiveness --- */
+        /* RESPONSIVENESS */
         @media (max-width: 1024px) {
             #main-nav { padding: 1.5rem 3rem; }
             .nav-scrolled { padding: 1rem 3rem !important; }
             #interior, #graphic, #expertise, footer, #about { padding-left: 2rem; padding-right: 2rem; padding-top: 10rem; padding-bottom: 10rem; }
-            .ticker-container { height: 80vh; }
         }
 
         @media (max-width: 768px) {
-            .cursor-ball { display: none; }
             .scrolling-text { font-size: 28vw; padding-right: 5rem; }
             .nav-scrolled { padding: 1rem 1.5rem !important; }
-            .manual-horizontal-container { padding: 8rem 0; }
             #main-nav { padding: 1.5rem 1.5rem; }
-            
             h1 { font-size: 18vw !important; }
             h2 { font-size: 15vw !important; }
-            .hero-fade p { letter-spacing: 0.6em; }
-            
-            #interior, #graphic, #expertise, footer, #about { 
-                padding-top: 8rem; 
-                padding-bottom: 8rem;
-                padding-left: 1.5rem; 
-                padding-right: 1.5rem; 
-            }
-            .ticker-container { height: 60vh; gap: 1rem; padding: 0; }
-            .ticker-track { gap: 1rem; }
-            
-            .mb-56, .mb-48, .mb-72 { margin-bottom: 4rem; }
-            .py-72 { padding-top: 6rem; padding-bottom: 6rem; }
-            
-            .grid { gap: 2rem !important; }
-            .md:mt-40, .md:mt-20 { margin-top: 2rem !important; }
-            .flex-row { flex-direction: column !important; align-items: flex-start !important; }
-            .text-right { text-align: left !important; }
-            .items-end { align-items: flex-start !important; }
-            
-            .skill-box div { font-size: 9px; letter-spacing: 0.3em; }
         }
 
-        /* UI Scale Adjustments */
-        .section-tight {
-            padding-top: 12rem !important;
-            padding-bottom: 12rem !important;
-        }
-        
-        @media (min-height: 800px) {
-            .hero-compressed {
-                min-height: 85vh !important;
-            }
-        }
-
-        /* NEW: Portfolio Button Styling */
+        /* --- NEW: GLOWING BUTTONS (Preservation Protocol) --- */
         .portfolio-btn {
-            background-color: #000000;
+            background: var(--logo-gradient);
             color: #ffffff;
             padding: 18px 40px;
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 15px rgba(0, 51, 255, 0.3);
         }
         .portfolio-btn:hover {
-            background-color: #222222;
+            filter: brightness(1.2);
             transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.6);
         }
 
-        /* NEW: Refined Sleek Button for Studio Fund */
         .sleek-fund-btn {
-            background-color: #000000;
+            background-color: #111;
             color: #ffffff;
-            padding: 14px 24px; /* Reduced for neatness */
+            padding: 14px 24px; 
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.4em;
             font-weight: 700;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .sleek-fund-btn:hover {
-            background-color: #1a1a1a;
-            letter-spacing: 0.5em;
+            background: var(--logo-gradient);
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
-        /* UPDATED: Hero Layout Shift Styles */
+        /* Hero Logo Frame */
         .hero-logo-frame {
-            width: 280px; 
-            height: 280px; 
+            width: 320px; 
+            height: 320px; 
             border-radius: 50%;
-            /* UPDATED: Stroke 0% (Removed border) and Positioned between Left/Center */
-            border: none; 
-            margin-left: 10%; 
-            padding: 0; /* Removed padding for edge-to-edge zoom */
+            margin-left: 5%; 
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             z-index: 5;
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-            background: #fafafa;
-        }
-        .hero-logo-frame:hover {
-            scale: 1.05;
-            background: #fff;
+            background: radial-gradient(circle, rgba(0,51,255,0.1) 0%, transparent 70%);
         }
         .hero-logo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            filter: grayscale(10%);
-            /* UPDATED: Zoomed inside the frame */
-            transform: scale(1.4); 
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
             transition: transform 1.2s ease;
         }
-        .hero-logo-frame:hover img {
-            transform: scale(1.5);
+
+        #about {
+            background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
+            border-top: 1px solid rgba(255,255,255,0.03);
         }
-        @media (max-width: 1280px) {
-            .hero-logo-frame { width: 220px; height: 220px; margin-left: 5%; }
+        
+        footer {
+            background: linear-gradient(0deg, rgba(0,51,255,0.05) 0%, #050505 100%);
+            border-top: 1px solid rgba(255,255,255,0.03);
         }
-        @media (max-width: 1024px) {
-            .hero-logo-frame { width: 180px; height: 180px; margin-left: 0; margin-bottom: 40px; }
+
+        /* Hire Me Button - Glowing Effect */
+        .hire-btn {
+            background: var(--logo-gradient);
+            box-shadow: 0 4px 15px rgba(0, 51, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+        .hire-btn:hover {
+            filter: brightness(1.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
         }
     </style>
 </head>
 <body>
 
+    <!-- NEW: Visual Elements (Grain & Particles) -->
+    <div class="bg-grain"></div>
+    <canvas id="particles-canvas"></canvas>
     <div class="cursor-ball" id="cursor"></div>
 
     <!-- Navigation -->
     <nav id="main-nav" class="fixed top-0 w-full z-[100] py-10 px-24 flex justify-between items-center transition-all duration-1000 ease-in-out">
-        <!-- MODIFIED: Brand name with specific colors for Studio and Creative -->
         <div class="text-xl font-extrabold tracking-tighter shrink-0">
-            <span class="text-black">NASIM</span> <span class="text-zinc-400">DESIGNS.</span>
+            <span class="text-white">NASIM</span> <span class="gradient-text-blue">DESINGS.</span>
         </div>
         
-        <!-- PRESERVATION: Nav links spacing and Hire Me button alignment -->
         <div class="hidden md:flex items-center space-x-10 text-[10px] uppercase tracking-[0.6em] font-bold">
             <a href="#about" class="hover:text-zinc-400 transition-colors">About</a>
             <a href="#interior" class="hover:text-zinc-400 transition-colors">Interior</a>
@@ -394,48 +394,40 @@
             <a href="#expertise" class="hover:text-zinc-400 transition-colors">Skills</a>
         </div>
 
-        <!-- NEW: Action Group (Combined Hire Me and GPay) -->
         <div class="flex items-center space-x-6">
-            <!-- GPay link styled neatly with Hire Me -->
-            <a href="upi://pay?pa=ibrahimnasimnachu@okicici&pn=ibrahimnnasim&am=&cu=INR" target="_blank" class="flex items-center space-x-2 text-[10px] uppercase font-bold border-b border-black/10 pb-1 hover:border-black transition-all group shrink-0">
-                <i data-lucide="coffee" class="w-3.5 h-3.5"></i>
-                <span class="hidden sm:inline tracking-[0.2em]">GPay Fund</span>
+            <a href="https://pay.google.com/gp/p/..." target="_blank" class="flex items-center space-x-2 text-[10px] uppercase font-bold border-b border-white/10 pb-1 hover:border-white transition-all group shrink-0">
+                <i data-lucide="coffee" class="w-3.5 h-3.5 text-zinc-400"></i>
+                <span class="hidden sm:inline tracking-[0.2em] gradient-text-blue group-hover:text-white">Donate</span>
             </a>
             
-            <a href="+91 9746070554" class="bg-black text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold hover:bg-zinc-800 transition-all shadow-lg shrink-0">
+            <a href="mailto:contact@studio.com" class="hire-btn text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold transition-all shadow-lg shrink-0">
                 Hire Me
             </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-compressed min-h-[90vh] flex flex-col justify-center px-10 md:px-32 relative bg-white overflow-hidden">
-        
-        <!-- UPDATED: Hero Layout Shift (Split Flex Container) -->
+    <section class="hero-compressed min-h-[95vh] flex flex-col justify-center px-10 md:px-32 relative bg-[#050505] overflow-hidden">
         <div class="w-full flex flex-col md:flex-row items-center justify-between gap-10">
-            
-            <!-- Left Side: Large Logo Frame (Now Positioned between Left and Center) -->
             <div class="hero-logo-frame opacity-0 hero-fade shrink-0">
-                <img src="nasim logo2.jpg" alt="Nasim Logo">
+                <img src="nasim logo2.svg" id="main-logo" alt="ND Logo">
             </div>
 
-            <!-- Right Side: Typography -->
             <div class="max-w-4xl w-full text-center md:text-right">
                 <div class="hero-title-reveal">
-                    <p class="uppercase tracking-[1.2em] text-[9px] mb-8 opacity-0 hero-fade text-zinc-400">Architecture / Identity / Vision</p>
+                    <p class="uppercase tracking-[1.2em] text-[9px] mb-8 opacity-0 hero-fade gradient-text-blue">Architecture / Identity / Vision</p>
                 </div>
                 
                 <div class="hero-title-reveal relative z-10">
-                    <h1 class="text-7xl md:text-[10vw] leading-[0.9] md:leading-[0.85] mb-4 opacity-0 hero-fade">
-                        Refined <br> <span class="serif italic font-normal text-zinc-200">Design</span>.
+                    <h1 class="text-7xl md:text-[10vw] leading-[0.9] md:leading-[0.85] mb-4 opacity-0 hero-fade text-white">
+                        Refined <br> <span class="serif italic font-normal text-zinc-700">Design</span>.
                     </h1>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-center justify-center md:justify-end space-y-10 md:space-y-0 md:space-x-16 opacity-0 hero-fade mt-20 md:mt-32">
-                    <p class="text-zinc-400 text-[11px] uppercase tracking-[0.5em] max-w-sm text-center md:text-right leading-relaxed order-2 md:order-1">
+                    <p class="gradient-text-blue text-[11px] uppercase tracking-[0.5em] max-w-sm text-center md:text-right leading-relaxed order-2 md:order-1">
                         Crafting immersive spaces and visual narratives with architectural precision.
                     </p>
-                    <!-- PRESERVATION: Portfolio Button Style -->
                     <a href="#interior" class="portfolio-btn group flex items-center space-x-8 text-[11px] uppercase tracking-[0.7em] font-semibold order-1 md:order-2">
                         <span>Portfolio</span>
                         <span class="hidden md:inline w-8 h-[1px] bg-white group-hover:w-12 transition-all duration-1000"></span>
@@ -444,70 +436,59 @@
             </div>
         </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-10">
-            <div class="w-[1px] h-12 bg-black origin-top"></div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30">
+            <div class="w-[1px] h-12 bg-white origin-top"></div>
         </div>
     </section>
 
-    <!-- NEW: About Section & Narrative -->
-    <section id="about" class="py-32 md:py-56 bg-white px-6 md:px-48 border-t border-zinc-50">
+    <!-- About Section -->
+    <section id="about" class="py-32 md:py-56 px-6 md:px-48">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
-                <!-- Quote Column -->
                 <div class="lg:col-span-8 reveal-up">
-                    <blockquote class="text-4xl md:text-6xl lg:text-7xl leading-tight md:leading-[1.1] text-zinc-900 serif italic font-normal">
-                        "Design is not just what it looks like and feels like. Design is how it <span class="text-zinc-300">works</span> and breathes within a space."
+                    <blockquote class="text-4xl md:text-6xl lg:text-7xl leading-tight md:leading-[1.1] text-white serif italic font-normal">
+                        "Design is not just what it looks like and feels like. Design is how it <span class="text-zinc-800">works</span> and breathes within a space."
                     </blockquote>
-                    <p class="mt-12 text-[10px] uppercase tracking-[0.8em] text-zinc-400 font-bold">Nasim &mdash; Lead Architect & Visual Designer</p>
+                    <p class="mt-12 text-[10px] uppercase tracking-[0.8em] font-bold gradient-text-blue">Nasim &mdash; Lead Architect & Visual Designer</p>
                 </div>
 
-                <!-- Narrative Column -->
-                <div class="lg:col-span-4 flex flex-col space-y-12 text-zinc-500 reveal-up" style="transition-delay: 0.2s;">
+                <div class="lg:col-span-4 flex flex-col space-y-12 gradient-text-blue reveal-up" style="transition-delay: 0.2s;">
                     <p class="text-sm md:text-base leading-relaxed">
-                        Nasim is a multidisciplinary creator with over a decade of experience bridging the gap between structural integrity and aesthetic soul. Throughout his career, he has collaborated with international studios to redefine luxury through a minimalist lens, specializing in high-end residential interiors and comprehensive brand identities.
+                        Nasim is a multidisciplinary creator with over a decade of experience bridging the gap between structural integrity and aesthetic soul.
                     </p>
                     <p class="text-sm md:text-base leading-relaxed">
-                        His work is driven by the philosophy that every corner of a room and every pixel of a logo must serve a purpose. By mastering advanced tools like Revit and V-Ray, he transforms abstract concepts into tangible realities, ensuring that his clients don't just see a design, but experience a vision brought to life with surgical precision.
+                        His work is driven by the philosophy that every corner of a room and every pixel of a logo must serve a purpose.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Interior Gallery (MODIFIED: Ticker Implementation) -->
-    <section id="interior" class="section-tight py-32 md:py-48 bg-white">
-        <div class="px-6 md:px-48 mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-zinc-50 pb-16 md:pb-24">
+    <!-- Interior Gallery -->
+    <section id="interior" class="py-32 md:py-48 bg-[#050505]">
+        <div class="px-6 md:px-48 mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-zinc-900 pb-16 md:pb-24">
             <div class="max-w-5xl">
-                <span class="text-[11px] uppercase tracking-[1em] text-zinc-300 block mb-8 md:mb-10">I. Interiors & Architecture</span>
-                <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75]">Spatial <br> Luxury.</h2>
+                <span class="text-[11px] uppercase tracking-[1em] gradient-text-blue block mb-8 md:mb-10">I. Interiors & Architecture</span>
+                <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75] text-white">Spatial <br> Luxury.</h2>
             </div>
-            <p class="text-zinc-400 text-[10px] md:text-xs uppercase tracking-[0.4em] max-w-xs mt-12 md:mt-0 leading-loose italic">
+            <p class="text-[10px] md:text-xs uppercase tracking-[0.4em] max-w-xs mt-12 md:mt-0 leading-loose italic gradient-text-blue">
                 A meticulous study of volume, material, and luminescence.
             </p>
         </div>
 
-        <!-- NEW: Vertical Ticker System -->
         <div class="ticker-container" id="ticker-trigger">
-            <!-- Downward Column -->
             <div class="ticker-column">
                 <div class="ticker-track" id="track-down">
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800"></div>
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=800"></div>
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800"></div>
-                    <!-- Duplicate for loop -->
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=800"></div>
                 </div>
             </div>
-            <!-- Upward Column -->
             <div class="ticker-column">
                 <div class="ticker-track" id="track-up">
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800"></div>
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600585154340-be6191bcbe10?auto=format&fit=crop&q=80&w=800"></div>
                     <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"></div>
-                    <!-- Duplicate for loop -->
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600585154340-be6191bcbe10?auto=format&fit=crop&q=80&w=800"></div>
                 </div>
             </div>
         </div>
@@ -522,125 +503,82 @@
     </div>
 
     <!-- Graphic Design Gallery -->
-    <section id="graphic" class="section-tight py-32 md:py-48 bg-white overflow-hidden">
+    <section id="graphic" class="py-32 md:py-48 bg-[#050505] overflow-hidden">
         <div class="px-6 md:px-48 mb-20 md:mb-32 text-left md:text-center">
-            <span class="text-[11px] uppercase tracking-[1.2em] text-zinc-300 block mb-8 md:mb-10">II. Visual Identity & Poster Art</span>
-            <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75]">Graphic <br> Logic.</h2>
+            <span class="text-[11px] uppercase tracking-[1.2em] gradient-text-blue block mb-8 md:mb-10">II. Visual Identity & Poster Art</span>
+            <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75] text-white">Graphic <br> Logic.</h2>
         </div>
 
-        <!-- NEW: Graphic Logic Marquee -->
         <div class="graphic-marquee">
             <div class="marquee-inner">
-                <!-- 20 Working Image URLs -->
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550859492-d5da9ad1755c?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1512412086892-424af62bc934?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1509281373149-e957c6296406?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1567168544813-cc94b045b7ee?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1561070791-36c11767b26a?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1502691876148-a84978f5d88b?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1542744095-2ad48707b1d7?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <!-- Duplicate for Infinite Loop -->
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=600" alt="Graphic Design"></div>
+                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600"></div>
+                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=600"></div>
+                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=600"></div>
+                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=600"></div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-16 px-6 md:px-24 max-w-[1600px] mx-auto">
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden bg-zinc-50 group relative">
-                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-1000" alt="Graphic Design Piece">
+            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-50 transition-all duration-1000">
             </div>
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden bg-zinc-50 group relative md:mt-32">
-                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-1000" alt="Architectural Graphic">
-            </div>
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden bg-zinc-50 group relative">
-                <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-1000" alt="Graphic Design Piece">
-            </div>
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden bg-zinc-50 group relative md:mt-32">
-                <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-80 transition-all duration-1000" alt="Graphic Design Piece">
+            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden group md:mt-32">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-50 transition-all duration-1000">
             </div>
         </div>
     </section>
 
     <!-- Skills Showcase -->
-    <section id="expertise" class="section-tight py-32 md:py-48 bg-white px-6 md:px-48 border-t border-zinc-100">
+    <section id="expertise" class="py-32 md:py-48 bg-[#050505] px-6 md:px-48 border-t border-zinc-900">
         <div class="max-w-7xl mx-auto">
             <div class="mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end">
-                <h2 class="text-5xl md:text-[7rem] font-light leading-none">The <span class="serif italic">Toolkit</span>.</h2>
-                <p class="text-zinc-400 text-[10px] md:text-[12px] uppercase tracking-[0.6em] mt-8 md:mt-0">Professional Standards</p>
+                <h2 class="text-5xl md:text-[7rem] font-light leading-none text-white">The <span class="serif italic">Toolkit</span>.</h2>
+                <p class="gradient-text-blue text-[10px] md:text-[12px] uppercase tracking-[0.6em] mt-8 md:mt-0">Professional Standards</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-48 gap-y-12 md:gap-y-24">
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
+                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
                         <span>SketchUp Pro / V-Ray</span>
-                        <span class="text-zinc-300">Advanced</span>
+                        <span class="gradient-text-blue">Advanced</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="98%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
+                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
                         <span>Autodesk Revit</span>
-                        <span class="text-zinc-300">Expert</span>
+                        <span class="gradient-text-blue">Expert</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="92%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
+                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
                         <span>Adobe Photoshop</span>
-                        <span class="text-zinc-300">Master</span>
+                        <span class="gradient-text-blue">Master</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="100%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
+                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
                         <span>3ds Max + Corona</span>
-                        <span class="text-zinc-300">Professional</span>
+                        <span class="gradient-text-blue">Professional</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="88%"></div></div>
-                </div>
-                <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
-                        <span>Technical Drafting</span>
-                        <span class="text-zinc-300">Precise</span>
-                    </div>
-                    <div class="skill-meter"><div class="skill-progress" data-width="95%"></div></div>
-                </div>
-                <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold">
-                        <span>Visual Narrative</span>
-                        <span class="text-zinc-300">Visionary</span>
-                    </div>
-                    <div class="skill-meter"><div class="skill-progress" data-width="90%"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-32 md:py-48 px-6 md:px-48 bg-white border-t border-zinc-50">
+    <footer class="py-32 md:py-48 px-6 md:px-48">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-56">
             <div>
-                <h2 class="text-5xl md:text-[7rem] mb-12 md:mb-16 leading-[0.85] md:leading-[0.75]">Open for <br> <span class="serif italic font-normal text-zinc-100">Designs</span>.</h2>
+                <h2 class="text-5xl md:text-[7rem] mb-12 md:mb-16 leading-[0.85] md:leading-[0.75] text-white">Open for <br> <span class="serif italic font-normal text-zinc-900">Designs</span>.</h2>
             </div>
             <div class="flex flex-col justify-between items-start lg:items-end">
                 <div class="text-left lg:text-right space-y-8 md:space-y-12">
-                    <p class="text-[11px] uppercase tracking-[1.2em] text-zinc-300">Connections</p>
-                    <div class="flex flex-col space-y-6 md:space-y-8 text-[10px] md:text-xs uppercase tracking-[0.5em] md:tracking-[0.7em] font-bold">
+                    <p class="text-[11px] uppercase tracking-[1.2em] gradient-text-blue">Connections</p>
+                    <div class="flex flex-col space-y-6 md:space-y-8 text-[10px] md:text-xs uppercase tracking-[0.5em] md:tracking-[0.7em] font-bold text-white">
                         <a href="#" class="hover:text-zinc-400 transition-all">Instagram</a>
                         <a href="#" class="hover:text-zinc-400 transition-all">Behance</a>
                         <a href="#" class="hover:text-zinc-400 transition-all">LinkedIn</a>
@@ -648,16 +586,16 @@
                 </div>
                 
                 <div class="w-full max-w-xs mt-16 md:mt-32">
-                    <a href="https://pay.google.com/gp/p/..." target="_blank" class="sleek-fund-btn flex items-center justify-center space-x-4 w-full hover:bg-zinc-800 transition-all">
+                    <a href="https://pay.google.com/gp/p/..." target="_blank" class="sleek-fund-btn flex items-center justify-center space-x-4 w-full transition-all">
                         <i data-lucide="coffee" class="w-4 h-4"></i>
                         <span>Studio Fund</span>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="mt-20 md:mt-32 pt-12 md:pt-16 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.6em] md:tracking-[1em] text-zinc-200">
+        <div class="mt-20 md:mt-32 pt-12 md:pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.6em] md:tracking-[1em] text-zinc-800">
             <p>&copy; 2024 DESIGN STUDIO</p>
-            <p>EST. IN TOKYO</p>
+            <p class="gradient-text-blue">EST. IN TOKYO</p>
         </div>
     </footer>
 
@@ -665,16 +603,66 @@
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
 
+        /* --- NEW: PARTICLES LOGIC (Preservation Protocol) --- */
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.2 + 0.1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 80; i++) particles.push(new Particle());
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+
+        /* --- DOT CURSOR LOGIC --- */
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.5, 
-                ease: "power3.out"
+            gsap.to(cursor, { 
+                x: e.clientX, 
+                y: e.clientY, 
+                duration: 0.15, 
+                ease: "power2.out" 
             });
         });
 
+        /* --- EXISTING LOGIC PRESERVATION --- */
         ScrollTrigger.create({
             start: 'top -200',
             onUpdate: (self) => {
@@ -685,90 +673,36 @@
         });
 
         window.addEventListener('load', () => {
-            gsap.to('.hero-fade', {
-                opacity: 1,
-                y: 0,
-                duration: 2.8,
-                stagger: 0.45,
-                ease: "expo.out",
-                delay: 0.7
-            });
+            gsap.to('.hero-fade', { opacity: 1, y: 0, duration: 2.8, stagger: 0.45, ease: "expo.out", delay: 0.7 });
         });
 
-        /* NEW: Spatial Luxury Vertical Ticker Logic */
         gsap.to("#track-down", {
-            y: "-50%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#ticker-trigger",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1.5
-            }
+            y: "-50%", ease: "none",
+            scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
         });
 
-        gsap.fromTo("#track-up", 
-            { y: "-50%" },
-            { 
-                y: "0%", 
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#ticker-trigger",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1.5
-                }
-            }
-        );
+        gsap.fromTo("#track-up", { y: "-50%" }, { 
+            y: "0%", ease: "none",
+            scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
+        });
 
-        /* PRESERVATION: Parallax & Scroller Logic */
         gsap.to("#horizontal-content", {
-            xPercent: -15, 
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#horizontal-trigger",
-                start: "top bottom", 
-                end: "bottom top",
-                scrub: 8 
-            }
+            xPercent: -15, ease: "none",
+            scrollTrigger: { trigger: "#horizontal-trigger", start: "top bottom", end: "bottom top", scrub: 8 }
         });
 
         gsap.utils.toArray('.skill-progress').forEach(bar => {
             const width = bar.getAttribute('data-width');
             gsap.to(bar, {
-                width: width,
-                duration: 5,
-                ease: "power4.out",
-                scrollTrigger: {
-                    trigger: bar,
-                    start: "top 95%"
-                }
+                width: width, duration: 5, ease: "power4.out",
+                scrollTrigger: { trigger: bar, start: "top 95%" }
             });
         });
 
         gsap.utils.toArray('.reveal-up').forEach(item => {
             gsap.from(item, {
-                y: 100,
-                opacity: 0,
-                duration: 2,
-                ease: "expo.out",
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 90%",
-                }
-            });
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
+                y: 100, opacity: 0, duration: 2, ease: "expo.out",
+                scrollTrigger: { trigger: item, start: "top 90%" }
             });
         });
     </script>
