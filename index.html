@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="nasim logo2.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nasim Designs. | Interior Architecture & Graphic Design</title>
+    <title>Studio.Creative | Interior Architecture & Graphic Design</title>
+    <link rel="icon" type="image/png" href="nasim logo.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- GSAP for Animations -->
@@ -23,13 +23,11 @@
             --zinc-200: #27272a;
             --zinc-400: #52525b;
             
-            /* Logo Inspired Gradient */
             --logo-blue: #0033ff;
             --logo-cyan: #00d4ff;
             --logo-gradient: linear-gradient(135deg, #001f3f 0%, #0033ff 50%, #00d4ff 100%);
             --text-gradient: linear-gradient(90deg, #0033ff, #00d4ff);
 
-            /* Preservation of previous palette as accents */
             --navy: #001f3f;
             --burnt-orange: #d35400;
             --sage: #87a96b;
@@ -46,7 +44,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* NEW: Hide default cursor */
             cursor: none !important;
         }
 
@@ -58,7 +55,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- NEW: BACKGROUND GRAIN & PARTICLES (Preservation Protocol) --- */
         .bg-grain {
             position: fixed;
             top: 0;
@@ -81,7 +77,6 @@
             z-index: 1;
         }
 
-        /* --- NEW: BLUE GRADIENT TEXT (Preservation Protocol) --- */
         .gradient-text-blue {
             background: var(--text-gradient);
             -webkit-background-clip: text;
@@ -95,17 +90,20 @@
             font-weight: 700;
         }
 
-        /* --- Custom Scrollbar --- */
+        /* NEW: Global Image Corner Radius */
+        img {
+            border-radius: 12px;
+        }
+
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--logo-cyan); }
 
-        /* --- ULTRA-SLOW & CLEAN Horizontal Scroller --- */
         .manual-horizontal-container {
             width: 100%;
             background: transparent; 
             color: var(--text-main);
-            padding: 20rem 0; 
+            padding: 8rem 0;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -120,16 +118,15 @@
         }
 
         .scrolling-text {
-            font-size: 16vw;
+            font-size: 8vw;
             font-weight: 800;
             text-transform: uppercase;
-            line-height: 0.8;
-            padding-right: 12rem;
-            letter-spacing: -0.07em;
-            opacity: 0.1; 
+            line-height: 1;
+            padding-right: 6rem;
+            letter-spacing: -0.02em;
+            opacity: 0.15; 
         }
 
-        /* --- NEW: DOT CURSOR (Preservation Protocol) --- */
         .cursor-ball {
             position: fixed;
             top: 0;
@@ -144,7 +141,6 @@
             transform: translate(-50%, -50%);
         }
 
-        /* --- Expertise Section UI --- */
         .skill-meter {
             height: 1px;
             background: var(--zinc-200);
@@ -169,11 +165,20 @@
             transform: translateX(10px);
         }
 
-        /* Hover Enhancements for Graphic Logic Section */
+        .software-icon {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            transition: all 0.4s ease;
+            border-radius: 0;
+        }
+
         .graphic-card {
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
             background: #111;
+            border-radius: 12px;
+            overflow: hidden;
         }
         .graphic-card::after {
             content: '';
@@ -193,7 +198,6 @@
             z-index: 10;
         }
 
-        /* Graphic Logic Marquee Styles */
         .graphic-marquee {
             width: 100%;
             overflow: hidden;
@@ -205,31 +209,27 @@
         .marquee-inner {
             display: flex;
             width: max-content;
-            animation: marquee-scroll 60s linear infinite;
         }
         .marquee-item {
-            width: 300px;
-            height: 200px;
             margin-right: 2rem;
             flex-shrink: 0;
             overflow: hidden;
             background: #111;
             border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.5s ease;
+            border-radius: 12px;
         }
+        .marquee-item.size-sm { width: 220px; height: 180px; }
+        .marquee-item.size-md { width: 340px; height: 220px; }
+        .marquee-item.size-lg { width: 420px; height: 300px; }
+
         .marquee-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%) contrast(1.2);
             transition: all 0.5s ease;
         }
-        .marquee-item:hover img {
-            filter: grayscale(0%) contrast(1);
-            transform: scale(1.1);
-        }
 
-        /* Glassmorphism for Dark Nav */
         .nav-scrolled {
             background: rgba(5, 5, 5, 0.8);
             backdrop-filter: blur(20px);
@@ -238,28 +238,27 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Spatial Luxury Vertical Tickers */
         .ticker-container {
             height: 120vh;
             overflow: hidden;
             position: relative;
-            display: flex;
-            gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             padding: 0 2rem;
         }
 
         .ticker-column {
-            flex: 1;
             height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .ticker-track {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
             will-change: transform;
         }
 
@@ -268,49 +267,49 @@
             aspect-ratio: 4/5;
             overflow: hidden;
             background: #111;
+            border-radius: 12px;
         }
 
         .ticker-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%);
-            transition: filter 0.8s ease, transform 0.8s ease;
+            transition: transform 0.8s ease;
         }
         
         .ticker-item:hover img {
-            filter: grayscale(0%);
             transform: scale(1.05);
         }
 
-        /* RESPONSIVENESS */
         @media (max-width: 1024px) {
             #main-nav { padding: 1.5rem 3rem; }
             .nav-scrolled { padding: 1rem 3rem !important; }
             #interior, #graphic, #expertise, footer, #about { padding-left: 2rem; padding-right: 2rem; padding-top: 10rem; padding-bottom: 10rem; }
+            .ticker-container { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .scrolling-text { font-size: 28vw; padding-right: 5rem; }
-            .nav-scrolled { padding: 1rem 1.5rem !important; }
-            #main-nav { padding: 1.5rem 1.5rem; }
+            .scrolling-text { font-size: 15vw; padding-right: 4rem; }
             h1 { font-size: 18vw !important; }
-            h2 { font-size: 15vw !important; }
+            .hero-logo-frame { width: 220px !important; height: 220px !important; }
         }
 
-        /* --- NEW: GLOWING BUTTONS (Preservation Protocol) --- */
+        /* UPDATED: Sharp Edges & Hover Logic */
         .portfolio-btn {
             background: var(--logo-gradient);
             color: #ffffff;
             padding: 18px 40px;
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0px !important; /* Sharp edge requested */
             box-shadow: 0 0 15px rgba(0, 51, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         .portfolio-btn:hover {
-            filter: brightness(1.2);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.6);
+            letter-spacing: 0.9em;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            transform: translateY(-5px);
         }
 
         .sleek-fund-btn {
@@ -323,18 +322,14 @@
             font-weight: 700;
             transition: all 0.4s ease;
             border: 1px solid rgba(255,255,255,0.1);
-        }
-        .sleek-fund-btn:hover {
-            background: var(--logo-gradient);
-            border-color: transparent;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            border-radius: 0px !important; /* Sharp edge */
         }
 
-        /* Hero Logo Frame */
         .hero-logo-frame {
-            width: 320px; 
-            height: 320px; 
+            width: 480px;
+            height: 480px;
             border-radius: 50%;
+            border: none !important;
             margin-left: 5%; 
             display: flex;
             align-items: center;
@@ -342,49 +337,41 @@
             overflow: hidden;
             z-index: 5;
             transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-            background: radial-gradient(circle, rgba(0,51,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0,51,255,0.05) 0%, transparent 80%);
         }
         .hero-logo-frame img {
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
             transition: transform 1.2s ease;
         }
 
         #about {
             background: linear-gradient(180deg, #0a0a0a 0%, #050505 100%);
-            border-top: 1px solid rgba(255,255,255,0.03);
         }
         
         footer {
             background: linear-gradient(0deg, rgba(0,51,255,0.05) 0%, #050505 100%);
-            border-top: 1px solid rgba(255,255,255,0.03);
         }
 
-        /* Hire Me Button - Glowing Effect */
         .hire-btn {
             background: var(--logo-gradient);
             box-shadow: 0 4px 15px rgba(0, 51, 255, 0.4);
+            border-radius: 0px !important; /* Sharp edge */
             transition: all 0.4s ease;
-        }
-        .hire-btn:hover {
-            filter: brightness(1.3);
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
         }
     </style>
 </head>
 <body>
 
-    <!-- NEW: Visual Elements (Grain & Particles) -->
     <div class="bg-grain"></div>
     <canvas id="particles-canvas"></canvas>
     <div class="cursor-ball" id="cursor"></div>
 
-    <!-- Navigation -->
     <nav id="main-nav" class="fixed top-0 w-full z-[100] py-10 px-24 flex justify-between items-center transition-all duration-1000 ease-in-out">
         <div class="text-xl font-extrabold tracking-tighter shrink-0">
-            <span class="text-white">NASIM</span> <span class="gradient-text-blue">DESINGS.</span>
+            <span class="text-white">NASIM</span> <span class="gradient-text-blue">DESIGNS.</span>
         </div>
         
         <div class="hidden md:flex items-center space-x-10 text-[10px] uppercase tracking-[0.6em] font-bold">
@@ -394,11 +381,12 @@
             <a href="#expertise" class="hover:text-zinc-400 transition-colors">Skills</a>
         </div>
 
+        <!-- NEW: Social Links Updated (Removed Behance, Added Icons) -->
         <div class="flex items-center space-x-6">
-            <a href="https://pay.google.com/gp/p/..." target="_blank" class="flex items-center space-x-2 text-[10px] uppercase font-bold border-b border-white/10 pb-1 hover:border-white transition-all group shrink-0">
-                <i data-lucide="coffee" class="w-3.5 h-3.5 text-zinc-400"></i>
-                <span class="hidden sm:inline tracking-[0.2em] gradient-text-blue group-hover:text-white">Donate</span>
-            </a>
+            <div class="hidden lg:flex items-center space-x-4 border-r border-white/10 pr-6 mr-2">
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors" title="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                <a href="#" class="text-zinc-500 hover:text-white transition-colors" title="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+            </div>
             
             <a href="mailto:contact@studio.com" class="hire-btn text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold transition-all shadow-lg shrink-0">
                 Hire Me
@@ -406,11 +394,10 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero-compressed min-h-[95vh] flex flex-col justify-center px-10 md:px-32 relative bg-[#050505] overflow-hidden">
         <div class="w-full flex flex-col md:flex-row items-center justify-between gap-10">
             <div class="hero-logo-frame opacity-0 hero-fade shrink-0">
-                <img src="nasim logo2.png" id="main-logo" alt="ND Logo">
+                <img src="nasim logoO2.PNG" id="main-logo" alt="Main Logo Content">
             </div>
 
             <div class="max-w-4xl w-full text-center md:text-right">
@@ -428,6 +415,7 @@
                     <p class="gradient-text-blue text-[11px] uppercase tracking-[0.5em] max-w-sm text-center md:text-right leading-relaxed order-2 md:order-1">
                         Crafting immersive spaces and visual narratives with architectural precision.
                     </p>
+                    <!-- UPDATED: Sharp Edge Portfolio Button -->
                     <a href="#interior" class="portfolio-btn group flex items-center space-x-8 text-[11px] uppercase tracking-[0.7em] font-semibold order-1 md:order-2">
                         <span>Portfolio</span>
                         <span class="hidden md:inline w-8 h-[1px] bg-white group-hover:w-12 transition-all duration-1000"></span>
@@ -435,13 +423,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30">
-            <div class="w-[1px] h-12 bg-white origin-top"></div>
-        </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="py-32 md:py-56 px-6 md:px-48">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
@@ -451,117 +434,124 @@
                     </blockquote>
                     <p class="mt-12 text-[10px] uppercase tracking-[0.8em] font-bold gradient-text-blue">Nasim &mdash; Lead Architect & Visual Designer</p>
                 </div>
-
                 <div class="lg:col-span-4 flex flex-col space-y-12 gradient-text-blue reveal-up" style="transition-delay: 0.2s;">
                     <p class="text-sm md:text-base leading-relaxed">
-                        Nasim is a multidisciplinary creator with over a decade of experience bridging the gap between structural integrity and aesthetic soul.
-                    </p>
-                    <p class="text-sm md:text-base leading-relaxed">
-                        His work is driven by the philosophy that every corner of a room and every pixel of a logo must serve a purpose.
+                        Nasim is a multidisciplinary creator bridging the gap between structural integrity and aesthetic soul.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Interior Gallery -->
     <section id="interior" class="py-32 md:py-48 bg-[#050505]">
         <div class="px-6 md:px-48 mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end border-b border-zinc-900 pb-16 md:pb-24">
             <div class="max-w-5xl">
                 <span class="text-[11px] uppercase tracking-[1em] gradient-text-blue block mb-8 md:mb-10">I. Interiors & Architecture</span>
                 <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75] text-white">Spatial <br> Luxury.</h2>
             </div>
-            <p class="text-[10px] md:text-xs uppercase tracking-[0.4em] max-w-xs mt-12 md:mt-0 leading-loose italic gradient-text-blue">
-                A meticulous study of volume, material, and luminescence.
-            </p>
         </div>
 
         <div class="ticker-container" id="ticker-trigger">
             <div class="ticker-column">
-                <div class="ticker-track" id="track-down">
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800"></div>
+                <div class="ticker-track t-down">
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop"></div>
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop"></div>
                 </div>
             </div>
             <div class="ticker-column">
-                <div class="ticker-track" id="track-up">
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600585154340-be6191bcbe10?auto=format&fit=crop&q=80&w=800"></div>
-                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"></div>
+                <div class="ticker-track t-up">
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=800&auto=format&fit=crop"></div>
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?q=80&w=800&auto=format&fit=crop"></div>
+                </div>
+            </div>
+            <div class="ticker-column">
+                <div class="ticker-track t-down">
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=800&auto=format&fit=crop"></div>
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop"></div>
+                </div>
+            </div>
+            <div class="ticker-column">
+                <div class="ticker-track t-up">
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1449156001437-3a1621acda3e?q=80&w=800&auto=format&fit=crop"></div>
+                    <div class="ticker-item"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Horizontal Scroller -->
     <div class="manual-horizontal-container" id="horizontal-trigger">
         <div class="horizontal-scroller-content" id="horizontal-content">
-            <div class="scrolling-text">Form &bull; Space &bull; Vision &bull; Logic &bull; </div>
-            <div class="scrolling-text">Form &bull; Space &bull; Vision &bull; Logic &bull; </div>
+            <div class="scrolling-text">SPACE &bull; VISION &bull; LOGIC &bull; SPACE &bull; VISION &bull; LOGIC &bull; </div>
+            <div class="scrolling-text">SPACE &bull; VISION &bull; LOGIC &bull; SPACE &bull; VISION &bull; LOGIC &bull; </div>
         </div>
     </div>
 
-    <!-- Graphic Design Gallery -->
     <section id="graphic" class="py-32 md:py-48 bg-[#050505] overflow-hidden">
-        <div class="px-6 md:px-48 mb-20 md:mb-32 text-left md:text-center">
-            <span class="text-[11px] uppercase tracking-[1.2em] gradient-text-blue block mb-8 md:mb-10">II. Visual Identity & Poster Art</span>
+        <div class="px-6 md:px-48 mb-20 md:mb-32">
+            <span class="text-[11px] uppercase tracking-[1.2em] gradient-text-blue block mb-8 md:mb-10">II. Visual Identity</span>
             <h2 class="text-6xl md:text-[9rem] leading-[0.85] md:leading-[0.75] text-white">Graphic <br> Logic.</h2>
         </div>
 
         <div class="graphic-marquee">
-            <div class="marquee-inner">
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=600"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&q=80&w=600"></div>
-                <div class="marquee-item"><img src="https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=600"></div>
+            <div class="marquee-inner" id="graphic-marquee-inner">
+                <div class="marquee-item size-md"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"></div>
+                <div class="marquee-item size-lg"><img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop"></div>
+                <div class="marquee-item size-sm"><img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=800&auto=format&fit=crop"></div>
+                <div class="marquee-item size-md"><img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=800&auto=format&fit=crop"></div>
+                <div class="marquee-item size-lg"><img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=800&auto=format&fit=crop"></div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-16 px-6 md:px-24 max-w-[1600px] mx-auto">
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-50 transition-all duration-1000">
-            </div>
-            <div class="reveal-up graphic-card aspect-[16/10] overflow-hidden group md:mt-32">
-                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover grayscale opacity-50 transition-all duration-1000">
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 px-6 md:px-24 max-w-[1600px] mx-auto">
+            <div class="reveal-up graphic-card aspect-[16/10]"><img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover"></div>
+            <div class="reveal-up graphic-card aspect-[16/10] md:mt-32"><img src="https://images.unsplash.com/photo-1626785774625-ddc7c8241520?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover"></div>
         </div>
     </section>
 
-    <!-- Skills Showcase -->
     <section id="expertise" class="py-32 md:py-48 bg-[#050505] px-6 md:px-48 border-t border-zinc-900">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-20 md:mb-32 flex flex-col md:flex-row justify-between items-start md:items-end">
+            <div class="mb-20 md:mb-32">
                 <h2 class="text-5xl md:text-[7rem] font-light leading-none text-white">The <span class="serif italic">Toolkit</span>.</h2>
-                <p class="gradient-text-blue text-[10px] md:text-[12px] uppercase tracking-[0.6em] mt-8 md:mt-0">Professional Standards</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-48 gap-y-12 md:gap-y-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-16">
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
-                        <span>SketchUp Pro / V-Ray</span>
-                        <span class="gradient-text-blue">Advanced</span>
+                    <div class="flex justify-between items-center text-[11px] uppercase tracking-[0.4em] font-bold text-white mb-4">
+                        <div class="flex items-center space-x-6">
+                            <img src="https://community.sketchucation.com/assets/uploads/files/1769618998017-screenshot-1_28_2026-10_48_39-am.png" class="software-icon" alt="SketchUp">
+                            <span>SketchUp Pro</span>
+                        </div>
+                        <span class="gradient-text-blue">98%</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="98%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
-                        <span>Autodesk Revit</span>
-                        <span class="gradient-text-blue">Expert</span>
+                    <div class="flex justify-between items-center text-[11px] uppercase tracking-[0.4em] font-bold text-white mb-4">
+                        <div class="flex items-center space-x-6">
+                            <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/autodesk-revit-icon.png" class="software-icon" alt="Revit">
+                            <span>Revit Architecture</span>
+                        </div>
+                        <span class="gradient-text-blue">92%</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="92%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
-                        <span>Adobe Photoshop</span>
-                        <span class="gradient-text-blue">Master</span>
+                    <div class="flex justify-between items-center text-[11px] uppercase tracking-[0.4em] font-bold text-white mb-4">
+                        <div class="flex items-center space-x-6">
+                            <img src="https://www.adobe.com/content/dam/cc/icons/photoshop.svg" class="software-icon" alt="Photoshop">
+                            <span>Adobe Photoshop</span>
+                        </div>
+                        <span class="gradient-text-blue">100%</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="100%"></div></div>
                 </div>
                 <div class="skill-box">
-                    <div class="flex justify-between items-end text-[9px] md:text-[11px] tracking-[0.3em] md:tracking-[0.6em] uppercase font-bold text-white">
-                        <span>3ds Max + Corona</span>
-                        <span class="gradient-text-blue">Professional</span>
+                    <div class="flex justify-between items-center text-[11px] uppercase tracking-[0.4em] font-bold text-white mb-4">
+                        <div class="flex items-center space-x-6">
+                            <img src="https://i.pinimg.com/736x/29/20/f9/2920f971a4a44a62c99b45531ff4395d.jpg" class="software-icon" alt="3ds Max">
+                            <span>3ds Max + Corona</span>
+                        </div>
+                        <span class="gradient-text-blue">88%</span>
                     </div>
                     <div class="skill-meter"><div class="skill-progress" data-width="88%"></div></div>
                 </div>
@@ -569,33 +559,28 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-32 md:py-48 px-6 md:px-48">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-56">
-            <div>
-                <h2 class="text-5xl md:text-[7rem] mb-12 md:mb-16 leading-[0.85] md:leading-[0.75] text-white">Open for <br> <span class="serif italic font-normal text-zinc-900">Designs</span>.</h2>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <h2 class="text-5xl md:text-[7rem] leading-[0.75] text-white">Open for <br> <span class="serif italic font-normal text-zinc-900">Designs</span>.</h2>
             <div class="flex flex-col justify-between items-start lg:items-end">
-                <div class="text-left lg:text-right space-y-8 md:space-y-12">
-                    <p class="text-[11px] uppercase tracking-[1.2em] gradient-text-blue">Connections</p>
-                    <div class="flex flex-col space-y-6 md:space-y-8 text-[10px] md:text-xs uppercase tracking-[0.5em] md:tracking-[0.7em] font-bold text-white">
-                        <a href="#" class="hover:text-zinc-400 transition-all">Instagram</a>
-                        <a href="#" class="hover:text-zinc-400 transition-all">Behance</a>
-                        <a href="#" class="hover:text-zinc-400 transition-all">LinkedIn</a>
-                    </div>
+                <!-- NEW: Updated Social Links with Icons, Removed Behance (Preservation Protocol) -->
+                <div class="flex space-x-8 text-[11px] uppercase tracking-[0.4em] font-bold text-zinc-500 mb-20">
+                    <a href="#" class="flex items-center space-x-2 hover:text-white transition-colors">
+                        <i data-lucide="instagram" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Instagram</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-2 hover:text-white transition-colors">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">LinkedIn</span>
+                    </a>
                 </div>
-                
-                <div class="w-full max-w-xs mt-16 md:mt-32">
-                    <a href="https://pay.google.com/gp/p/..." target="_blank" class="sleek-fund-btn flex items-center justify-center space-x-4 w-full transition-all">
+                <div class="w-full max-w-xs">
+                    <a href="https://pay.google.com/gp/p/..." target="_blank" class="sleek-fund-btn flex items-center justify-center space-x-4 w-full">
                         <i data-lucide="coffee" class="w-4 h-4"></i>
                         <span>Studio Fund</span>
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="mt-20 md:mt-32 pt-12 md:pt-16 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] md:text-[11px] uppercase tracking-[0.6em] md:tracking-[1em] text-zinc-800">
-            <p>&copy; 2024 DESIGN STUDIO</p>
-            <p class="gradient-text-blue">EST. IN TOKYO</p>
         </div>
     </footer>
 
@@ -603,15 +588,10 @@
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
 
-        /* --- NEW: PARTICLES LOGIC (Preservation Protocol) --- */
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -639,30 +619,19 @@
                 ctx.fill();
             }
         }
-
-        function initParticles() {
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
-        }
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
-        initParticles();
         animateParticles();
 
-        /* --- DOT CURSOR LOGIC --- */
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, { 
-                x: e.clientX, 
-                y: e.clientY, 
-                duration: 0.15, 
-                ease: "power2.out" 
-            });
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
         });
 
-        /* --- EXISTING LOGIC PRESERVATION --- */
         ScrollTrigger.create({
             start: 'top -200',
             onUpdate: (self) => {
@@ -673,35 +642,49 @@
         });
 
         window.addEventListener('load', () => {
-            gsap.to('.hero-fade', { opacity: 1, y: 0, duration: 2.8, stagger: 0.45, ease: "expo.out", delay: 0.7 });
+            gsap.to('.hero-fade', { opacity: 1, y: 0, duration: 2, stagger: 0.3, ease: "expo.out" });
         });
 
-        gsap.to("#track-down", {
-            y: "-50%", ease: "none",
-            scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
+        gsap.utils.toArray(".t-down").forEach(track => {
+            gsap.to(track, {
+                y: "-30%", ease: "none",
+                scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
+            });
         });
 
-        gsap.fromTo("#track-up", { y: "-50%" }, { 
-            y: "0%", ease: "none",
-            scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
+        gsap.utils.toArray(".t-up").forEach(track => {
+            gsap.fromTo(track, { y: "-30%" }, { 
+                y: "0%", ease: "none",
+                scrollTrigger: { trigger: "#ticker-trigger", start: "top bottom", end: "bottom top", scrub: 1.5 }
+            });
         });
 
         gsap.to("#horizontal-content", {
-            xPercent: -15, ease: "none",
-            scrollTrigger: { trigger: "#horizontal-trigger", start: "top bottom", end: "bottom top", scrub: 8 }
+            xPercent: -20, ease: "none",
+            scrollTrigger: { trigger: "#horizontal-trigger", start: "top bottom", end: "bottom top", scrub: 5 }
+        });
+
+        const marquee = document.getElementById('graphic-marquee-inner');
+        const clone = marquee.innerHTML;
+        marquee.innerHTML += clone; 
+        
+        gsap.to(marquee, {
+            xPercent: -50,
+            repeat: -1,
+            duration: 40,
+            ease: "linear"
         });
 
         gsap.utils.toArray('.skill-progress').forEach(bar => {
-            const width = bar.getAttribute('data-width');
             gsap.to(bar, {
-                width: width, duration: 5, ease: "power4.out",
+                width: bar.getAttribute('data-width'), duration: 2.5, ease: "power4.out",
                 scrollTrigger: { trigger: bar, start: "top 95%" }
             });
         });
 
         gsap.utils.toArray('.reveal-up').forEach(item => {
             gsap.from(item, {
-                y: 100, opacity: 0, duration: 2, ease: "expo.out",
+                y: 60, opacity: 0, duration: 1.5, ease: "expo.out",
                 scrollTrigger: { trigger: item, start: "top 90%" }
             });
         });
