@@ -9,6 +9,8 @@
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- FIX: Added missing ScrollToPlugin for anchor animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Google Fonts -->
@@ -692,7 +694,7 @@
     <script>
         // Initializing Icons
         lucide.createIcons();
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); // FIX: Added ScrollToPlugin to register
 
         /* NEW: QR Code Logic (Preservation Protocol) */
         function openQR() {
@@ -702,6 +704,24 @@
         function closeQR() {
             document.getElementById('qr-modal').classList.remove('active');
         }
+
+        /* NEW: Smooth Anchor Scrolling Logic (Preservation Protocol) */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: { y: targetElement, autoKill: true },
+                        ease: "power4.inOut"
+                    });
+                }
+            });
+        });
 
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
