@@ -482,11 +482,16 @@
 
         <div class="flex items-center space-x-6">
             <div class="hidden lg:flex items-center space-x-4 border-r border-white/10 pr-6 mr-2">
-                <a href="https://www.instagram.com/__.na__sim._/" class="text-zinc-500 hover:text-white transition-colors" title="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
-                <a href="#" class="text-zinc-500 hover:text-white transition-colors" title="LinkedIn"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                <a href="https://www.instagram.com/__.na__sim._/" target="_blank" class="text-zinc-500 hover:text-white transition-colors" title="Instagram">
+                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="text-zinc-500 hover:text-white transition-colors" title="LinkedIn">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
             </div>
             
-            <a href="mailto:contact@studio.com" class="hire-btn text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold transition-all shadow-lg shrink-0">
+            <!-- NEW: WhatsApp Integration (Preservation Protocol) -->
+            <a href="https://wa.me/919746070554?text=Hi%20Nasim%2C%20I%20found%20your%20contact%20through%20Your%20Website%20and%20I%E2%80%99m%20interested%20in%20your%20Designs.%20Could%20you%20let%20me%20know%20your%20availability%20for%20a%20quick%20chat%3F" target="_blank" class="hire-btn text-white px-8 py-3 tracking-[0.3em] text-[9px] uppercase font-bold transition-all shadow-lg shrink-0">
                 Hire Me
             </a>
         </div>
@@ -660,12 +665,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
             <h2 class="text-5xl md:text-[7rem] leading-[0.75] text-white">Open for <br> <span class="serif italic font-normal text-zinc-900">Designs</span>.</h2>
             <div class="flex flex-col justify-between items-start lg:items-end">
-                <div class="flex space-x-8 text-[11px] uppercase tracking-[0.4em] font-bold text-zinc-500 mb-20">
-                    <a href="https://www.instagram.com/__.na__sim._/" class="flex items-center space-x-2 hover:text-white transition-colors">
+                <div class="flex space-x-8 text-[11px] uppercase tracking-[0.4em] font-bold text-white mb-20">
+                    <a href="https://www.instagram.com/__.na__sim._/" target="_blank" class="flex items-center space-x-2 text-zinc-500 hover:text-white transition-colors">
                         <i data-lucide="instagram" class="w-4 h-4"></i>
                         <span class="hidden sm:inline">Instagram</span>
                     </a>
-                    <a href="#" class="flex items-center space-x-2 hover:text-white transition-colors">
+                    <a href="https://linkedin.com" target="_blank" class="flex items-center space-x-2 text-zinc-500 hover:text-white transition-colors">
                         <i data-lucide="linkedin" class="w-4 h-4"></i>
                         <span class="hidden sm:inline">LinkedIn</span>
                     </a>
@@ -685,6 +690,7 @@
     </footer>
 
     <script>
+        // Initializing Icons
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
 
